@@ -316,16 +316,11 @@ namespace KartGame.KartSystems
 
             // apply vehicle physics
             if (m_CanMove)
-            {
-                if(XRAccelerate.action.IsPressed()) Debug.Log($"XRAccelerate IsPressed: {XRAccelerate.action.IsPressed()}");
-                if(XRBrake.action.IsPressed()) Debug.Log($"XRBrake IsPressed: {XRBrake.action.IsPressed()}");
-                if(XRTurnIn.action.IsPressed()) Debug.Log($"XRTurnIn IsPressed: {XRTurnIn.action.IsPressed()}");
-                
-                if(XRAccelerate.action.IsInProgress()) Debug.Log($"XRAccelerate IsInProgress: {XRAccelerate.action.IsInProgress()}");
-                if(XRBrake.action.IsInProgress()) Debug.Log($"XRBrake IsInProgress: {XRBrake.action.IsInProgress()}");
-                if(XRTurnIn.action.IsInProgress()) Debug.Log($"XRTurnIn IsInProgress: {XRTurnIn.action.IsInProgress()}");
-                
-                MoveVehicle(Input.Accelerate, Input.Brake, Input.TurnInput);
+            {   
+                var q = XRTurnIn.action.ReadValue<Vector2>();
+                // if(XRTurnIn.action.IsPressed()) Debug.Log($"XRTurnIn IsPressed: {q.x} {q.y}");
+                // if(XRAccelerate.action.IsPressed() || XRBrake.action.IsPressed()) Debug.Log($"XR action: {XRAccelerate.action.IsPressed() || XRBrake.action.IsPressed()}");
+                MoveVehicle(XRAccelerate.action.IsPressed(), XRBrake.action.IsPressed(), q.x);
             }
             GroundAirbourne();
 
